@@ -24,7 +24,7 @@ The rendering pipiline Stages
 8. Fragment shader(programmable)
 9. Per-sample operations
 
-204----------------------Shaders and the rendering pipeline----------------------------
+-------------------------------------------204-Shaders and the rendering pipeline--------------------------------------
 
 - Tessellation
 - Geometry Shader
