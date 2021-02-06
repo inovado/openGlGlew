@@ -55,6 +55,10 @@ Summary
 - Vertex Buffer Object(VBO): The vertex data itself
 - Shader programs are created wieht at least a vertex shader and then activated before use.
 
+---------------------------206-THEORY Vectors Matrices and Uniform Variables------------------------------------------
+
+
+
 
 
 */
