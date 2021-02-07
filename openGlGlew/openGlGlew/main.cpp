@@ -10,6 +10,8 @@
 #include <string.h>
 #include <cmath>
 
+#include <glm/mat4x4.hpp>
+
 const GLint width = 800, height = 600;
 
 GLuint VAO, VBO, shader, uniformXMove; // VAO-matriz de vertices  VBO-bufer de vertices
