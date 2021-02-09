@@ -56,7 +56,9 @@ Summary
 - Shader programs are created wieht at least a vertex shader and then activated before use.
 
 ---------------------------206-THEORY Vectors Matrices and Uniform Variables------------------------------------------
+---------------------------208 CODING Using GLM (OpenGL Maths Library)------------------------------------------
 
+---------------------------209 CODING Transforming Translation------------------------------------------
 
 
 

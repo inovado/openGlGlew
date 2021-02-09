@@ -4,22 +4,27 @@
 //------------------------------------------ -205 CODING Shaders and the First Triangle--------------------------------------
 
 #include <stdio.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <string.h>
 #include <cmath>
 
-#include <glm/mat4x4.hpp>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
 
 const GLint width = 800, height = 600;
+const float toRadians = 3.14159265f / 180.0f;
 
-GLuint VAO, VBO, shader, uniformXMove; // VAO-matriz de vertices  VBO-bufer de vertices
+GLuint VAO, VBO, shader, uniformModel; // VAO-matriz de vertices  VBO-bufer de vertices
 
 bool direction = true;
-float triOffset = 0.0f;
+float triOffset = 0.01f;
 float triMaxoffset = 0.7f;
-float triIncrement = 0.005f; 
+float triIncrement = 0.0005f; 
+
+float curAngle = 0.0f;
 
 
 
@@ -29,11 +34,12 @@ static const char* vShader = "											\n\
 																		\n\
 layout (location = 0) in vec3 pos;										\n\
 																		\n\
-uniform float xMove;													\n\
+uniform mat4 model;														\n\
 																		\n\
 void main()																\n\
 {																		\n\
-gl_Position = vec4(0.1 * pos.x + xMove, 0.1 * pos.y, pos.z, 1.0);		\n\
+gl_Position = model * vec4(0.4 * pos.x, 0.4* pos.y, pos.z, 1.0);		\n\
+//gl_Position = vec4(0.4 * pos.x, 0.4* pos.y, pos.z, 1.0);		\n\
 }";
 
 
@@ -45,7 +51,7 @@ out vec4 colour;												\n\
 																\n\
 void main()														\n\
 {																\n\
-	colour = vec4(0.0, 1.0, 0.0, 1.0);							\n\
+	colour = vec4(0.0, 0.0, 1.0, 1.0);							\n\
 }";
 
 
@@ -135,7 +141,7 @@ void CompileShaders() {
 		return;
 	}
 
-	uniformXMove = glGetUniformLocation(shader, "xMove");
+	uniformModel = glGetUniformLocation(shader, "model");
 }
 
 
@@ -211,13 +217,24 @@ int main()
 			direction = !direction;
 		}
 
+		curAngle += 0.001f;
+		if (curAngle >= 360)
+		{
+			curAngle -= 360;
+		}
+
 		// Clear window
 		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shader);
 
-		glUniform1f(uniformXMove, triOffset);
+		glm::mat4 model;
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f , 0.0f)); // sentido en el que se movera el shader, ejes x, y, z
+		model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+
+		glUniform1f(uniformModel, triOffset); 
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
