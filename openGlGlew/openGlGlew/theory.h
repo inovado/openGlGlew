@@ -59,6 +59,20 @@ Summary
 ---------------------------208 CODING Using GLM (OpenGL Maths Library)------------------------------------------
 
 ---------------------------209 CODING Transforming Translation------------------------------------------
+---------------------------210 CODING Transforming Rotation------------------------------------------
+---------------------------211 CODING Transforming Scaling------------------------------------------
+---------------------------212 THEORY Interpolation Indexed Draws and Projections------------------------------------------
+
+- Interpolation				- calculates weighted values between vertices during rasterization.
+- Indexed					- Draws let us define vertices one then reference them to draw them
+- Projection				- Matrices convert view space in to clip space
+- Orthographic				- Projections are used for 2D applicationes and dont allow depth perception
+- Perspective				- Projections are for 3D applications and create the illusion of depth
+- GLM						- has the glm::perspective functio to create perspective matrices
+
+
+--------------------------- 213 CODING Interpolation ------------------------------------------------------------------
+
 
 
 
