@@ -20,7 +20,7 @@ const float toRadians = 3.14159265f / 180.0f;
 GLuint VAO, VBO, shader, uniformModel; // VAO-matriz de vertices  VBO-bufer de vertices
 
 bool direction = true;
-float triOffset = 0.01f;
+float triOffset = 0.001f;
 float triMaxoffset = 0.7f;
 float triIncrement = 0.0005f; 
 
@@ -39,13 +39,17 @@ static const char* vShader = "											\n\
 																		\n\
 layout (location = 0) in vec3 pos;										\n\
 																		\n\
+out vec4 vCol;															\n\
+																		\n\
 uniform mat4 model;														\n\
 																		\n\
 void main()																\n\
 {																		\n\
-gl_Position = model * vec4(0.01 * pos.x, 0.01* pos.y, pos.z, 1.0);	\n\
-//gl_Position = vec4(0.4 * pos.x, 0.4* pos.y, pos.z, 1.0);				\n\
+//gl_Position = model * vec4(0.01 * pos.x, 0.01* pos.y, pos.z, 1.0);	\n\
+gl_Position = vec4(0.4 * pos.x, 0.4* pos.y, pos.z, 1.0);				\n\
 	//gl_Position = model * vec4(pos, 1.0);								\n\
+//gl_Position = vec4(pos, 1.0);											\n\
+vCol = vec4(clamp(pos, 0.0f, 1.0f), 1.0f);								\n\
 }";
 
 
@@ -53,11 +57,12 @@ gl_Position = model * vec4(0.01 * pos.x, 0.01* pos.y, pos.z, 1.0);	\n\
 static const char* fShader = "									\n\
 #version 330													\n\
 																\n\
+in vec4 vCol;													\n\																																\n\
 out vec4 colour;												\n\
 																\n\
 void main()														\n\
 {																\n\
-	colour = vec4(0.0, 0.0, 1.0, 1.0);							\n\
+	colour = vCol;												\n\
 }";
 
 
@@ -244,15 +249,15 @@ int main()
 		}
 
 		// Clear window
-		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shader);
 
 		glm::mat4 model;
 		
-		model = glm::scale(model, glm::vec3(curSize, curSize, 1.0f)); // primero debe ir la escala
-		model = glm::translate(model, glm::vec3(0.0001f, 0.0001f , 0.0001f)); // sentido en el que se movera el shader, ejes x, y, z
+		//model = glm::scale(model, glm::vec3(curSize, curSize, 1.0f)); // primero debe ir la escala
+		//model = glm::translate(model, glm::vec3(0.0001f, 0.0001f , 0.0001f)); // sentido en el que se movera el shader, ejes x, y, z
 		//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.01f, 0.01f, 0.01f));
 		
 
