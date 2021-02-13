@@ -274,7 +274,7 @@ int main()
 		glm::mat4 model;
 		
 		//model = glm::scale(model, glm::vec3(curSize, curSize, 1.0f)); // primero debe ir la escala
-		model = glm::translate(model, glm::vec3(0.0001f, 0.0001f , 0.0001f)); // sentido en el que se movera el shader, ejes x, y, z
+		//model = glm::translate(model, glm::vec3(0.0001f, 0.0001f , 0.0001f)); // sentido en el que se movera el shader, ejes x, y, z
 		//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.01f, 0.01f, 0.01f));
 		
 
