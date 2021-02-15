@@ -46,10 +46,10 @@ uniform mat4 projection;												\n\
 																		\n\
 void main()																\n\
 {																		\n\
-gl_Position = model * vec4(5.0 * pos.x, 5.0 * pos.y, pos.z, 0.5);	\n\
+//gl_Position = proyection * model * vec4(5.0 * pos.x, 5.0 * pos.y, pos.z, 0.5);	\n\
 //gl_Position = vec4(0.4 * pos.x, 0.4* pos.y, pos.z, 1.0);				\n\
 //gl_Position = model * vec4(pos, 1.0);								\n\
-//gl_Position = vec4(pos, 1.0);											\n\
+gl_Position = vec4(pos, 1.0);											\n\
 vCol = vec4(clamp(pos, 0.0f, 1.0f), 1.0f);								\n\
 }";
 
