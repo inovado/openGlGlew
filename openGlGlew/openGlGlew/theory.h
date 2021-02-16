@@ -79,4 +79,15 @@ Summary
 
 --------------------------- 217 THEORY The Camera and User Input ------------------------------------------------------------------
 
+- View Matrix requires Position, Direction, Right, and Up vectors
+- glm::lookAt handles it for us
+- To move camera, alter position on key press.
+- Delta time allows consistent speeds across systems
+- Turning uses Pitch and Yaw (and Roll in some cases).
+- Use pitch and Yaw to calculate new directions vectors
+- Compare last and current mouse positions to determine how pitch and yaw change
+
+
+
+
 */
