@@ -77,7 +77,7 @@ Summary
 
 --------------------------- 215 CODING Projections ------------------------------------------------------------------
 
---------------------------- 217 THEORY The Camera and User Input ------------------------------------------------------------------
+--------------------------- 317 THEORY The Camera and User Input -----------------------------------------------------
 
 - View Matrix requires Position, Direction, Right, and Up vectors
 - glm::lookAt handles it for us
@@ -86,6 +86,9 @@ Summary
 - Turning uses Pitch and Yaw (and Roll in some cases).
 - Use pitch and Yaw to calculate new directions vectors
 - Compare last and current mouse positions to determine how pitch and yaw change
+
+--------------------------- 318 CODING Camera Input with GLFW ----------------------------------------------------
+
 
 
 
