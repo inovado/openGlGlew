@@ -1,3 +1,6 @@
+
+//---------copia extraida de https://github.com/mpro34/OpenGLCourseApp/tree/fcdb0e329d72bbf33c264ad279d9357a75d6d69b/OpenGLCourseApp
+
 #include <stdio.h>
 #include <string.h>
 #include <cmath>

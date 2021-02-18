@@ -49,7 +49,7 @@ int Window::Initialise()
 		return 1;
 	}
 
-	// Get buffer size information
+	// Get buffer size information  
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
 	// Set the current context
@@ -57,7 +57,7 @@ int Window::Initialise()
 
 	// Handle Key + Mouse Input
 	createCallbacks();
-	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // oculta puntero del mouse y limita sus movimietos a la ventana
 
 	// Allow modern extension access
 	glewExperimental = GL_TRUE;
@@ -79,20 +79,20 @@ int Window::Initialise()
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
-void Window::createCallbacks()
+void Window::createCallbacks() // Activa las funciones de registran las teclas presionadas
 {
 	glfwSetKeyCallback(mainWindow, handleKeys);
 	glfwSetCursorPosCallback(mainWindow, handleMouse);
 }
 
-GLfloat Window::getXChange()
+GLfloat Window::getXChange() // funcion para actulizar los valores que el mouse tiene en x
 {
 	GLfloat theChange = xChange;
 	xChange = 0.0f;
 	return theChange;
 }
 
-GLfloat Window::getYChange()
+GLfloat Window::getYChange()// funcion para actulizar los valores que el mouse tiene
 {
 	GLfloat theChange = yChange;
 	yChange = 0.0f;
@@ -103,7 +103,7 @@ void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int m
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) // si se presiona la tecla espacio
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
@@ -134,10 +134,12 @@ void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
 	}
 
 	theWindow->xChange = xPos - theWindow->lastX;
-	theWindow->yChange = theWindow->lastY - yPos;
+	theWindow->yChange = theWindow->lastY - yPos; // sistema de movimiento invertidos para la camara
 
 	theWindow->lastX = xPos;
 	theWindow->lastY = yPos;
+
+	printf("x:%.6f, y:%.6f\n", theWindow->xChange, theWindow->yChange);
 
 }
 

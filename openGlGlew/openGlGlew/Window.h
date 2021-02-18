@@ -34,7 +34,7 @@ private:
 	GLint width, height;
 	GLint bufferWidth, bufferHeight;
 
-	bool keys[1024];
+	bool keys[1024]; // cubre el rango de caracteres ascii
 
 	GLfloat lastX;
 	GLfloat lastY;
