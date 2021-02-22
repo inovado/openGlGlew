@@ -89,7 +89,20 @@ Summary
 
 --------------------------- 318 CODING Camera Input with GLFW ----------------------------------------------------
 
+--------------------------- 319 CODING Camera Movement -----------------------------------------------------------
 
+--------------------------- 320 THEORY Textures and Image Loading ------------------------------------------------
+
+- Texture
+- Texture objects
+- Mipmaps
+- Texture parameters - filters
+- Texture parameters - Wrap
+- Using stb_image
+- Texture samples
+- Texture Units
+
+--------------------------- 321 CODING Texture Mapping ---------------------------------------------------------
 
 
 

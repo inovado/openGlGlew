@@ -57,7 +57,7 @@ int Window::Initialise()
 
 	// Handle Key + Mouse Input
 	createCallbacks();
-	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // oculta puntero del mouse y limita sus movimietos a la ventana
+	//glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // oculta puntero del mouse y limita sus movimietos a la ventana
 
 	// Allow modern extension access
 	glewExperimental = GL_TRUE;
