@@ -104,6 +104,9 @@ Summary
 
 --------------------------- 321 CODING Texture Mapping ---------------------------------------------------------
 
+- incluir libreria de texturizado
+https://raw.githubusercontent.com/nothings/stb/master/stb_image.h
+
 
 
 */
