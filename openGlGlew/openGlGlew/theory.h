@@ -107,6 +107,19 @@ Summary
 - incluir libreria de texturizado
 https://raw.githubusercontent.com/nothings/stb/master/stb_image.h
 
+--------------------------- 322 THEORY Phong Lighting and Directional Lights -----------------------------------
+
+- Phong Lighting
+	- Ambient lighting
+	- Diffuse lighting
+	- Specuclar lighting
+
+- Types of light
+	- Directional Light
+	- Point Light
+	- Spot Light
+	- Area Light
+
 
 
 */
