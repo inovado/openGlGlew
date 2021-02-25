@@ -23,11 +23,13 @@ void Mesh::CreateMesh(GLfloat* vertices, unsigned int* indices, unsigned int num
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numOfVertices, vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 5, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, 0); // el numero 8 es el numero de columnas dentro del vector vertices en main
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 5, (void *)(sizeof(vertices[0]) * 3));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void *)(sizeof(vertices[0]) * 3)); // el 3 hace referencia al los tres primeros valores de cada fila del vector vertices en main, que representa la posicion de un punto cada uno
 	glEnableVertexAttribArray(1);
-	
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, (void*)(sizeof(vertices[0]) * 5)); // el 5 hace referencia a una nueva fila dentro del vector vertices para construir un punto
+	glEnableVertexAttribArray(2);
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 

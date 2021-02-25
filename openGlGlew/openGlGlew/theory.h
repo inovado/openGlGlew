@@ -120,6 +120,8 @@ https://raw.githubusercontent.com/nothings/stb/master/stb_image.h
 	- Spot Light
 	- Area Light
 
+--------------------------- 424 CODING Diffuse Lighting ------------------------------------------------------ 
+
 
 
 */
