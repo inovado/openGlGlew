@@ -21,6 +21,7 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Light.h"
+#include "Material.h"
 
 
 const float toRadians = 3.14159265f / 180.0f;
@@ -32,6 +33,9 @@ Camera camera;
 
 Texture brickTexture;
 Texture dirtTexture;
+
+Material shinyMaterial;
+Material dullMaterial;
 
 Light mainLight;
 
@@ -99,9 +103,9 @@ void CreateObjects()
 	GLfloat vertices[] = {
 	//		coordenadas			coordenadas uv		coordenadas normal
 	//   x		y	  z			u		v			 nx	   ny	 nz
-	   -1.0f, -1.0f, 0.0f,		0.0f,	0.0f,		0.0f, 0.0f, 0.0f,
+	   -1.0f, -1.0f, -0.6f,		0.0f,	0.0f,		0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f,		0.5f,	0.0f,		0.0f, 0.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,		1.0f,	0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, -1.0f, 0.6f,		1.0f,	0.0f,		0.0f, 0.0f, 0.0f,
 		0.0f,  1.0f, 0.0f,		0.5f,	1.0f,		0.0f, 0.0f, 0.0f
 	};
 
@@ -128,7 +132,7 @@ void CreateShaders()
 int main()
 {
 
-	mainWindow = Window(800, 600);
+	mainWindow = Window(1366, 768); // 1280, 1024 OR 1024, 768
 	mainWindow.Initialise();
 
 	CreateObjects();
@@ -141,10 +145,17 @@ int main()
 	dirtTexture = Texture("Textures/kind.png");
 	dirtTexture.LoadTexture();
 
-	//mainLight = Light(); // Inicializacion de luz con parametros por defecto
-	mainLight = Light(1.0f, 1.0f, 1.0f, 0.2f, 2.0f, -1.0f, -2.0f, 1.0f); // Inicializacion de luz con otros parametros
+	shinyMaterial = Material(1.0f, 32);
+	dullMaterial = Material(0.3f, 4);
 
-	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformAmbientIntensity = 0, uniformAmbientColour = 0, uniformDirecion = 0, uniformDiffuseIntensity = 0;
+	//mainLight = Light(); // Inicializacion de luz con parametros por defecto
+	mainLight = Light(1.0f, 1.0f, 1.0f, 0.1f, 
+					  2.0f, -1.0f, -2.0f, 0.1f); // Inicializacion de luz con otros parametros
+
+	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
+		uniformAmbientIntensity = 0, uniformAmbientColour = 0, uniformDirecion = 0, 
+		uniformDiffuseIntensity = 0, uniformSpecularIntensity = 0, uniformShininess = 0;
+	
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
 
 	// Loop until window closed
@@ -173,22 +184,31 @@ int main()
 		uniformAmbientIntensity = shaderList[0].GetAmbientIntensityLocation();
 		uniformDirecion = shaderList[0].GetDirectionLocation();
 		uniformDiffuseIntensity = shaderList[0].GetDiffuseIntensityLocation();
+		uniformEyePosition = shaderList[0].GetEyePositionLocation();
+		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
+		uniformShininess = shaderList[0].GetShininessLocation();
 
 		mainLight.UseLight(uniformAmbientIntensity, uniformAmbientColour, uniformAmbientIntensity, uniformDirecion);
+
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		glm::mat4 model(1.0f);
 
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));  // ESCALA DE FIGURA
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+		//glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		//glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		brickTexture.UseTexture();
+		shinyMaterial.useMaterial(uniformSpecularIntensity, uniformShininess); //aplicacion de especular brillo
 		meshList[0]->RenderMesh();
 
+
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 1.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 4.0f, -2.5f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f)); // ESCALA FIGURA
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		dirtTexture.UseTexture();
 		meshList[1]->RenderMesh();
