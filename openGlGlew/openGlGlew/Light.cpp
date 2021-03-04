@@ -2,30 +2,56 @@
 
 Light::Light()
 {
-	colour = glm::vec3(1.0f, 1.0f, 1.0f);
+	color = glm::vec3(1.0f, 1.0f, 1.0f);
 	ambientIntensity = 1.0f;
-
-	direction = glm::vec3(0.0f, -1.0f, 0.0f);
+	diffuseIntensity = 0.0f;
 }
 
-Light::Light(GLfloat red, GLfloat green, GLfloat blue, GLfloat aIntensity, GLfloat xDir, GLfloat yDir, GLfloat zDir, GLfloat dIntensity)
+Light::Light(GLfloat red, GLfloat green, GLfloat blue, GLfloat intensity, GLfloat dIntensity)
 {
-	colour = glm::vec3(red, green, blue);
-	ambientIntensity = aIntensity;
-
-	direction = glm::vec3(xDir, yDir, zDir);
+	color = glm::vec3(red, green, blue);
+	ambientIntensity = intensity;
 	diffuseIntensity = dIntensity;
 }
 
-void Light::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation, GLfloat diffuseIntensityLocation, GLfloat directionLocation)
+void Light::UseLight(GLuint ambientIntensityLoc, GLuint ambientColorLoc, GLuint diffuseIntensityLoc)
 {
-	glUniform3f(ambientColourLocation, colour.x, colour.y, colour.z);
-	glUniform1f(ambientIntensityLocation, ambientIntensity);
-
-	glUniform3f(directionLocation, direction.x, direction.y, direction.z);
-	glUniform1f(diffuseIntensityLocation, diffuseIntensity);
+	glUniform3f(ambientColorLoc, color.x, color.y, color.z);
+	glUniform1f(ambientIntensityLoc, ambientIntensity);
+	glUniform1f(diffuseIntensityLoc, diffuseIntensity);
 }
 
-Light::~Light()
-{
-}
+
+//Light::~Light()
+//{
+//}
+
+
+//#include "Light.h"
+//
+//Light::Light()
+//{
+//	colour = glm::vec3(1.0f, 1.0f, 1.0f);
+//	ambientIntensity = 1.0f;
+//	diffuseIntensity = 0.0f;
+//}
+//
+//Light::Light(GLfloat red, GLfloat green, GLfloat blue, GLfloat aIntensity, GLfloat dIntensity)
+//{
+//	colour = glm::vec3(red, green, blue);
+//	ambientIntensity = aIntensity;
+//	diffuseIntensity = dIntensity;
+//}
+//
+////void Light::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation, GLfloat diffuseIntensityLocation)
+////{
+////	glUniform3f(ambientColourLocation, colour.x, colour.y, colour.z);
+////	glUniform1f(ambientIntensityLocation, ambientIntensity);
+////
+////	glUniform3f(directionLocation, direction.x, direction.y, direction.z);
+////	glUniform1f(diffuseIntensityLocation, diffuseIntensity);
+////}
+//
+//Light::~Light()
+//{
+//}

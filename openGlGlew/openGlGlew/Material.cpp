@@ -1,5 +1,7 @@
 #include "Material.h"
 
+
+
 Material::Material()
 {
 	specularIntensity = 0.0f;
@@ -9,15 +11,40 @@ Material::Material()
 Material::Material(GLfloat sIntensity, GLfloat shine)
 {
 	specularIntensity = sIntensity;
-	shininess = shine;  
+	shininess = shine;
 }
 
-void Material::useMaterial(GLuint specularIntensityLocation, GLuint shininessLocation)
+void Material::UseMaterial(GLuint specularIntensityLoc, GLuint shininessLoc)
 {
-	glUniform1f(specularIntensityLocation, specularIntensity);
-	glUniform1f(shininessLocation, shininess);
+	glUniform1f(specularIntensityLoc, specularIntensity);
+	glUniform1f(shininessLoc, shininess);
 }
+
 
 Material::~Material()
 {
 }
+
+//#include "Material.h"
+//
+//Material::Material()
+//{
+//	specularIntensity = 0.0f;
+//	shininess = 0.0f;
+//}
+//
+//Material::Material(GLfloat sIntensity, GLfloat shine)
+//{
+//	specularIntensity = sIntensity;
+//	shininess = shine;  
+//}
+//
+//void Material::useMaterial(GLuint specularIntensityLocation, GLuint shininessLocation)
+//{
+//	glUniform1f(specularIntensityLocation, specularIntensity);
+//	glUniform1f(shininessLocation, shininess);
+//}
+//
+//Material::~Material()
+//{
+//}
