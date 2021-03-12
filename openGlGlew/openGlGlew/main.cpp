@@ -47,7 +47,7 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
-
+  
 // Vertex Shader
 static const char* vShader = "Shaders/vertex.shader";
 
@@ -183,9 +183,9 @@ int main()
 
 	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
 		0.2f, 1.0f,
-		0.0f, -1.5f, 0.0f,
+		0.0f, -1.5f, 0.0f,  // intensidad de luz
 		-100.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f, // atenuacion por distancia
 		20.0f);
 	spotLightCount++;
 

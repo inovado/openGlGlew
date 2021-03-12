@@ -16,7 +16,7 @@ public:
 		GLuint diffuseIntensityLoc, GLuint positionLoc, GLfloat directionLoc,
 		GLuint constantLoc, GLuint linearLoc, GLuint coeffientLoc, GLuint edgeLoc);
 
-	void SetFlash(glm::vec3 pos, glm::vec3 dir);
+	void SetFlash(glm::vec3 pos, glm::vec3 dir); // funcion para camara movible
 
 	~SpotLight();
 

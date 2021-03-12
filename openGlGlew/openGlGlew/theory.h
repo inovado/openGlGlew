@@ -127,4 +127,21 @@ https://raw.githubusercontent.com/nothings/stb/master/stb_image.h
 
 --------------------------- 427 CODING Point Lights ----------------------------------------------------------------------
 
+-------------- 532 THEORY Omnidirectional Shadows Cube Maps and the Geometry Shader -------------
+
+- Omnidirectional shadows use cubemaps to map shadows in all directions.
+- Cubemaps are texture consisting of 6 sub-textures
+- Cubemap texels are referenced by a direction vector
+- Geometry shader handles primitives
+- Geometry shader can modify primitives and create entirely new ones... we use it to map to the cubemap from 6 views, allowing only a single shadow pass per light.
+- Due to nature cubemaps, no needs for light transform matrix in render pass.
+- PCF can use predefined offset directions
+- PCF can scale offsets based on viewer distance.
+- Need to ensure samplerCubes aren't bound to same texture unit as sampler2D!
+
+
+------------------------------------ 535 THEORY The Skybox --------------------------------------
+
+
+
 */
