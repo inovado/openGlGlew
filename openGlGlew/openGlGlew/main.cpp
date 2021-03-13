@@ -26,6 +26,8 @@
 #include "SpotLight.h"
 #include "Material.h"
 
+#include "Skybox.h"
+
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -47,6 +49,8 @@ SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
+
+Skybox skybox;
   
 // Vertex Shader
 static const char* vShader = "Shaders/vertex.shader";
@@ -154,9 +158,9 @@ int main()
 	shinyMaterial = Material(4.0f, 256);
 	dullMaterial = Material(0.3f, 4);
 
-	ambientLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.1f, 0.1f,
-		0.0f, 0.0f, -1.0f);
+	ambientLight = DirectionalLight(1.0f, 0.53f, 0.3f,
+									0.1f, 0.9f,
+									-10.0f, -12.0f, 18.5f);
 
 	unsigned int pointLightCount = 0;
 	pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
@@ -189,6 +193,17 @@ int main()
 		20.0f);
 	spotLightCount++;
 
+	std::vector<std::string> skyboxFaces;
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
+	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+
+	skybox = Skybox(skyboxFaces);
+
+
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformPosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
@@ -214,7 +229,10 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+
 		shaderList[0].UseShader();
+
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
 		uniformView = shaderList[0].GetViewLocation();
